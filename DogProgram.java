@@ -8,6 +8,7 @@ public class DogProgram {
 	private boolean programRunning = true;
 	private ArrayList<Dog> dogs = new ArrayList<Dog>();
 	private ArrayList<User> users = new ArrayList<User>();
+	private ArrayList<Auction> auctions = new ArrayList<Auction>();
 
 	public static void main(String[] args) {
 		DogProgram program = new DogProgram();
@@ -29,8 +30,8 @@ public class DogProgram {
 		System.out.println("* list users");
 		System.out.println("* remove user");
 		// auction
-		System.out.println("* start auctions");// inte klar
-		System.out.println("* list auctions");// inte klar
+		System.out.println("* start auction");
+		System.out.println("* list auctions");
 
 		// bid
 		System.out.println("* list bids");// inte klar
@@ -230,26 +231,52 @@ public class DogProgram {
 	}
 
 	private void startAuction() {
-		boolean isNotExit = false;
+
 		System.out.println("Enter the name of the dog>");
 		String name = input.nextLine();
-		// lägg name av hunden på auktionslist
+
+		for (int j = 0; j < auctions.size(); j++) {
+			if (name.equalsIgnoreCase(auctions.get(j).getDogName())) {
+				System.out.println("Error: this dog is already up for auction");
+				return;
+			}
+		}
+
+		// gå genom hund lista
 		for (int i = 0; i < dogs.size(); i++) {
 			Dog d = dogs.get(i);
 			if (name.equalsIgnoreCase(d.getName())) {
-				System.out.println(format(name) + " has been put up for auction #" + " list nummer");
-			} else {
-				isNotExit = true;
+
+				if (d.getOwner() != null) {
+					System.out.println("Error: this dog has an owner");
+
+					return;
+				} else {
+
+					auctions.add(new Auction(d));
+					System.out.println(format(name) + " has been put up for auction #" + auctions.size());
+					return;
+				}
+
 			}
+
 		}
-		if(isNotExit) {
-			System.out.println("Error: no such dog");
-		}
+
+		System.out.println("Error: no such dog");
 
 	}
 
 	private void listAuctions() {
-		// visar auktionslist
+		if (auctions.isEmpty()) {
+			System.out.println("Error:no auctions in progress");
+
+		} else {
+			for (int i = 0; i < auctions.size(); i++) {
+				Auction a = auctions.get(i);
+				System.out.print("Auction #"+(i+1)+" ");
+				System.out.println(a);
+			}
+		}
 	}
 
 	private void listBids() {

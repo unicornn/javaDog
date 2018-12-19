@@ -38,6 +38,9 @@ public class Dog {
 	public void setOwner(User u) {
 		user=u;
 	}
+	public User getOwner() {
+		return user;
+	}
 	public double getTailLength() {
 
 		double tailLength;

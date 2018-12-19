@@ -4,17 +4,20 @@ import java.util.ArrayList;
 
 public class Auction {
 	private Dog dog;
-	//dog.getName()
 	private ArrayList<User> users = new ArrayList<User>();
-	
+//borde ändra till vanligt Array
 	public Auction(Dog dog) {
-		this.dog=dog;
+		this.dog = dog;
 	}
+
+	public String getDogName() {
+		return dog.getName();
+	}
+
 	public String toString() {
-		return dog.getName()+". Top bids: "+ users;
+		return format(dog.getName()) + ". Top bids: " + users;
 	}
-	
-	
+
 	private String format(String string) {
 
 		String resultat;
