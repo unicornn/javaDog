@@ -6,6 +6,7 @@ public class Dog {
 	private String breed;
 	private int age;
 	private int weight;
+	private User user;
 
 	public Dog(String name, String breed, int age, int weight) {
 		this.name = name;
@@ -26,7 +27,6 @@ public class Dog {
 
 		age++;
 	}
-
 	public int getAge() {
 		return age;
 	}
@@ -35,9 +35,12 @@ public class Dog {
 		return weight;
 	}
 
-	public double getTailLength(int age, double weight) {
+	public void setOwner(User u) {
+		user=u;
+	}
+	public double getTailLength() {
 
-		 double tailLength;
+		double tailLength;
 		if (breed.equalsIgnoreCase("tax") || breed.equalsIgnoreCase("dachshund")) {
 
 			tailLength = 3.7;
@@ -50,7 +53,22 @@ public class Dog {
 	}
 
 	public String toString() {
-		return name.toLowerCase() + " " + breed.toLowerCase() + " " + age + " år " + weight + " kg svans="
-				+ getTailLength( age,weight);
+		String hasOwner = "";
+		if (user != null) {
+			hasOwner = ", owned by " + user.getName();
+		}
+
+		return format(name) + " (" + format(breed) + ", " + age + " years, " + weight + " kilo, " + getTailLength()
+				+ " cm tail" + hasOwner + ")";
 	}
+
+	private String format(String string) {
+
+		String resultat;
+
+		resultat = string.toUpperCase().charAt(0) + string.toLowerCase().substring(1);
+
+		return resultat;
+	}
+
 }
